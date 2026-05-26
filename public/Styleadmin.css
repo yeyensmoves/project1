@@ -1,0 +1,219 @@
+/* THEME COLORS */
+
+:root {
+    --dark-brown: #4b2e2a;
+    --light-brown: #d9b99b;
+    --cream: #f5efe6;
+    --accent: #7a4a3a;
+}
+
+
+
+/* BODY */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--cream);
+    color: #2b1b16;
+}
+
+
+
+/* NAVBAR */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 25px;
+
+    background: var(--dark-brown);
+    color: white;
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+/* NAVIGATION ACTIONS */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* NAVIGATION BUTTONS */
+
+.logout-btn,
+.panel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 42px;
+
+    padding: 10px 18px;
+
+    background: var(--accent);
+    color: white;
+
+    border: 1px solid var(--light-brown);
+    border-radius: 8px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.logout-btn:hover,
+.panel-btn:hover {
+    background: var(--dark-brown);
+}
+
+
+
+/* MAIN CONTAINER */
+
+.container {
+    padding: 20px;
+}
+
+
+
+/* DASHBOARD CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card {
+    padding: 20px;
+
+    background: var(--light-brown);
+    color: #2b1b16;
+
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    text-align: center;
+}
+
+
+
+/* TABLE SECTION */
+
+.table-section {
+    padding: 20px;
+
+    background: var(--light-brown);
+
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-section h2 {
+    margin-bottom: 15px;
+    color: #2b1b16;
+}
+
+
+
+/* TABLE */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+
+    text-align: center;
+}
+
+
+
+/* TABLE HEADER */
+
+thead {
+    background: var(--dark-brown);
+    color: white;
+}
+
+
+
+/* TABLE CELLS */
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* TABLE ROW HOVER */
+
+tbody tr:hover {
+    background: #e6c7ac;
+}
+
+
+
+/* BUTTONS */
+
+button {
+    padding: 6px 12px;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+
+
+/* DELETE BUTTON */
+
+td button {
+    background: #8b3a2e;
+    color: white;
+}
+
+
+
+/* BULK DELETE BUTTON */
+
+.container > button {
+    margin-top: 15px;
+
+    background: var(--dark-brown);
+    color: white;
+
+    font-weight: bold;
+}
+
+
+
+/* CHECKBOX */
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Order History</title>
+<link rel="stylesheet" href="Styleadmin.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">Order History</div>
+
+    <div class="nav-actions">
+        <a href="admin.html" class="panel-btn">← Back to Dashboard</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="table-section">
+
+        <h2>Delivered Orders History</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Status</th>
+                    <th>Delivered At</th>
+                </tr>
+            </thead>
+
+            <tbody id="history-table">
+                <tr>
+                    <td colspan="5" style="text-align:center;">Loading...</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+async function loadHistory() {
+
+    const res = await fetch('/history');
+    const data = await res.json();
+
+    const table = document.getElementById("history-table");
+    table.innerHTML = "";
+
+    if (data.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align:center;">No history found</td>
+            </tr>
+        `;
+        return;
+    }
+
+    data.forEach(order => {
+
+        table.innerHTML += `
+        <tr>
+            <td>${order.id}</td>
+            <td>${order.customer}</td>
+            <td>${order.product}</td>
+            <td>${order.status}</td>
+            <td>${new Date(order.delivered_at).toLocaleString()}</td>
+        </tr>
+        `;
+    });
+}
+
+loadHistory();
+
+</script>
+
+</body>
+</html>

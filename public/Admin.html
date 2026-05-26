@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="Styleadmin.css">
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <nav class="navbar">
+    <div class="logo">Dashboard</div>
+
+    <div class="nav-actions">
+
+        <a href="history.html" class="panel-btn">History</a>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+
+    </div>
+</nav>
+
+    <!-- CONTENT -->
+    <div class="container">
+
+        <div class="cards">
+
+            <div class="card">
+            <h2>Total Orders</h2>
+            <p id="total-orders">0</p>
+            </div>
+
+            <div class="card">
+             <h2>Users</h2>
+             <p id="total-users">0</p>
+            </div>
+
+            <div class="card">
+              <h2>Pending</h2>
+              <p id="pending-orders">0</p>
+            </div>
+
+            <div class="card">
+                <h2>Total Payment</h2>
+                <p id="total-payment">₱0</p>
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-section">
+            <h2>Recent Orders</h2>
+
+            
+            <table>
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="orders-table">
+        <tr>
+            <td colspan="6" style="text-align:center;">Loading...</td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<button onclick="markDelivered()">Order Delivered</button>
+
+<button onclick="deleteSelected()">Delete Selected</button>
+        </div>
+
+    </div>
+
+   <script>
+function logout() {
+    sessionStorage.clear(); // clears user login
+    localStorage.clear();
+
+    alert("Logged out successfully");
+
+    window.location.href = "index.html";
+}
+</script>
+
+
+<script>
+
+let selectedOrders = new Set();
+
+async function loadOrders() {
+
+    // SAVE CHECKED IDS BEFORE REFRESH
+    document.querySelectorAll(".select-order:checked").forEach(cb => {
+        selectedOrders.add(cb.value);
+    });
+
+    const res = await fetch('/orders');
+    const orders = await res.json();
+
+    const table = document.getElementById("orders-table");
+
+    table.innerHTML = "";
+
+    // =========================
+    // TABLE RENDER
+    // =========================
+
+    if (orders.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;">No orders</td>
+            </tr>
+        `;
+
+    } else {
+
+        orders.forEach(order => {
+
+            const checked = selectedOrders.has(String(order.id))
+                ? "checked"
+                : "";
+
+            table.innerHTML += `
+            <tr>
+                <td>
+                    <input 
+                        type="checkbox"
+                        value="${order.id}"
+                        class="select-order"
+                        ${checked}
+                    >
+                </td>
+
+                <td>${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.product}</td>
+                <td>${order.status}</td>
+
+                <td>
+                    <button onclick="deleteOrder(${order.id})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            `;
+        });
+    }
+
+    // UPDATE SELECTED IDS
+
+
+    document.querySelectorAll(".select-order").forEach(cb => {
+
+        cb.addEventListener("change", () => {
+
+            if (cb.checked) {
+                selectedOrders.add(cb.value);
+            } else {
+                selectedOrders.delete(cb.value);
+            }
+
+        });
+
+    });
+    
+    // DASHBOARD STATS
+
+    const totalOrders = orders.length;
+
+    const uniqueUsers =
+        new Set(orders.map(o => o.customer)).size;
+
+    const pendingOrders =
+        orders.filter(o => o.status === "Pending").length;
+
+    let totalPayment = 0;
+
+    orders.forEach(o => {
+
+        const match = o.product.match(/₱\s*(\d+)/);
+
+        if (match) {
+            totalPayment += Number(match[1]);
+        }
+
+    });
+
+    document.getElementById("total-orders").textContent =
+        totalOrders;
+
+    document.getElementById("total-users").textContent =
+        uniqueUsers;
+
+    document.getElementById("pending-orders").textContent =
+        pendingOrders;
+
+    document.getElementById("total-payment").textContent =
+        "₱" + totalPayment;
+}
+
+// INITIAL LOAD
+loadOrders();
+
+// AUTO REFRESH
+setInterval(() => {
+    loadOrders();
+}, 3000);
+
+
+
+
+// DELETE SINGLE
+async function deleteOrder(id) {
+
+    if (!confirm("Delete this order?")) return;
+
+    const res = await fetch(`/orders/${id}`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        loadOrders();
+    } else {
+        alert("Delete failed");
+    }
+}
+
+
+// DELETE MULTIPLE
+async function deleteSelected() {
+
+    const checkboxes = document.querySelectorAll(".select-order:checked");
+
+    if (checkboxes.length === 0) {
+        alert("No selected orders");
+        return;
+    }
+
+    const ids = Array.from(checkboxes).map(cb => parseInt(cb.value));
+
+    const res = await fetch("/orders/delete-multiple", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ids })
+    });
+
+    if (res.ok) {
+        loadOrders();
+    } else {
+        alert("Delete failed");
+    }
+}
+
+async function markDelivered() {
+
+    const checkboxes = document.querySelectorAll(".select-order:checked");
+
+    if (checkboxes.length === 0) {
+        alert("No selected orders");
+        return;
+    }
+
+    const ids = Array.from(checkboxes).map(cb => parseInt(cb.value));
+
+    const res = await fetch("/orders/delivered", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ids })
+    });
+
+    if (res.ok) {
+        alert("Orders marked as Delivered!");
+        loadOrders(); // refresh table
+    } else {
+        alert("Failed to update orders");
+    }
+}
+</script>
+
+</body>
+</html>

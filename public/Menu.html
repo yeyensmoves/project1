@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="design2.css">
+</head>
+<body>
+
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="left-nav">
+
+            <div class="logo-name">
+            Timpla Ni Juan
+            </div>
+
+            <button id="favorite-icon" class="favorite-icon">
+            <img src="star.png" class="favoriteimg">Favorites<span id="favorite-count">0</span>
+            </button>
+
+        </div>
+
+        
+        <div class="right-nav">
+
+            <button id="cart-icon" class="cart-icon">
+            🛒 Cart <span id="cart-count">0</span>
+            </button>
+
+            <span id="user-display" class="user-display"></span>
+
+            <a href="index.html" class="logout-btn">
+            Log Out
+            </a>
+
+        </div>
+        
+    </nav>
+
+    <div id="favorite-window" class="cart-window">
+
+        <div class="cart-header">
+
+            <h2>Favorites </h2>
+
+            <button id="close-favorite">✖</button>
+
+            
+
+        </div>
+
+        <div id="favorite-items">
+
+            <p>No favorites yet</p>
+
+        </div>
+
+        <button id="clear-favorites" class="clear-cart-btn">
+            Clear Favorites
+            </button> 
+
+    </div>
+
+    <div id="cart-window" class="cart-window">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="close-cart">✖</button>
+        </div>
+
+        <div id="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+
+        <div class="cart-footer">
+        Total: ₱<span id="cart-total">0</span>
+        </div>
+
+        <div class="cart-actions">
+        <button id="checkout-btn" class="checkout-btn">
+            Buy / Checkout
+        </button>
+        
+        <button id="clear-cart" class="clear-cart-btn">
+            Clear Cart
+        </button>
+        </div>
+    </div>
+        
+
+<section class="menu" id="menu">
+            
+    <div class="box-container">
+            <aside class="sidebar">
+                <h2>Drinks</h2>
+
+                <ul>
+                    <li><a href="#espresso-card">Espresso</a></li>
+                    <li><a href="#frappe-blend-card">Frappe Blend</a></li>
+                    <li><a href="#refresher-card">Refresher</a></li>
+                </ul>
+            </aside>
+
+        <main class="content">
+
+            <div class="drinks-hero">
+
+                <div class="hero-text">
+                    <h1>OUR DRINKS</h1>
+
+                    <p>
+                    At <b>TIMPLA NI JUAN</b>, enjoy premium coffee
+                    and refreshing drinks in every cup.
+                    </p>
+                </div>
+
+                <div class="hero-image">
+                <img src="coffee.jpg">
+                </div>
+
+            </div>
+
+
+            <div class="drink-grid">
+
+                <a href="#espresso" class="drink-link">
+                <div class="drink" id="espresso-card">
+                    <img src="https://images-ext-1.discordapp.net/external/05Rwjzj6x3Q2CU9qCVU6CPeefRds35F9az-YQ-GCfuE/https/starbucks.ph/seed_data/HBRE_HotBrewedCoffee.jpg?format=webp&width=434&height=434">
+
+                    <p>Espresso</p>
+                </div>
+                </a>
+
+                
+                <a href="#frappe-blend" class="drink-link">
+
+                <div class="drink" id="frappe-card">
+
+                    <img src="https://images-ext-1.discordapp.net/external/TDnOF4skVt59fg8Rg5d-PARqw5O3nz0DlD-t9hM0ZpY/https/starbucks.ph/seed_data/FRAPCRE_ChocolateChipCreamFrappuccino.jpg?format=webp&width=434&height=434">
+
+                    <p>Frappe Blend</p>
+
+                </div>
+
+                </a>
+
+                <a href="#refresher" class="drink-link">
+                <div class="drink" id="refresher-card">
+
+                    <img src="https://images-ext-1.discordapp.net/external/_zdsxmeK69di2fjoKBVneNb1zmN8nVrtkj_MMIjQLbA/https/starbuckscard.ph/sbcard-admin/storage/app/public/menu/351/Y6NAnHFmewQN4MkXEuvWv6KZCZQMvYhspP4ybFYt.jpeg?format=webp&width=434&height=434">
+
+                    <p>Refresher</p>
+
+                </div>
+                </a>
+            </div>
+        </main>
+    </div>
+        
+        <div class="coffee-menu">  
+            <div class="box menu-section" id="espresso">
+
+                <h3>Espresso</h3>
+
+                <p>Choose Flavor:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn flavor-btn">Americano</button>
+                    <button type="button" class="option-btn flavor-btn">Café Latte</button>
+                    <button type="button" class="option-btn flavor-btn">Cappuccino </button>
+                </div>
+
+                    <p>Choose Size:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn size-btn">Small - ₱75</button>
+                    <button type="button" class="option-btn size-btn">Medium - ₱105</button>
+                    <button type="button" class="option-btn size-btn">Large - ₱115</button>
+                </div>
+                    <button type="button" id="add-cart" class="cart-btn">
+                    Add to Cart
+                    </button>
+
+            </div>
+                        
+            <div class="box frappe-box menu-section" id="frappe-blend">
+
+                <h3>Frappe Blend</h3>
+
+                <p>Choose Flavor:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn flavor-btn">Chocolate</button>
+                    <button type="button" class="option-btn flavor-btn">Caramel</button>
+                    <button type="button" class="option-btn flavor-btn">Mocha</button>
+                </div>
+
+                    <p>Choose Size:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn size-btn">Small - ₱120</button>
+                    <button type="button" class="option-btn size-btn">Medium - ₱140</button>
+                    <button type="button" class="option-btn size-btn">Large - ₱160</button>
+                </div>
+                    <button type="button" class="cart-btn">
+                    Add to Cart
+                    </button>
+
+            </div>
+ 
+            <div class="box refresher menu-section" id="refresher">
+
+                <h3>Refresher</h3>
+
+                <p>Choose Flavor:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn flavor-btn">Lemonberry</button>
+                    <button type="button" class="option-btn flavor-btn">Matcha Yakult</button>
+                    <button type="button" class="option-btn flavor-btn">Iced Shaken Hibiscus</button>
+                </div>
+
+                    <p>Choose Size:</p>
+
+                <div class="option-group">
+                    <button type="button" class="option-btn size-btn">Small - ₱60</button>
+                    <button type="button" class="option-btn size-btn">Medium - ₱80</button>
+                    <button type="button" class="option-btn size-btn">Large - ₱100</button>
+                </div>
+                    <button type="button" id="add-cart" class="cart-btn">
+                    Add to Cart
+                    </button>
+
+            </div>
+
+
+        </div>
+</section>
+
+
+        <script src="menu.js"></script>
+        
+        <script>
+window.addEventListener("DOMContentLoaded", () => {
+    const user = sessionStorage.getItem("user");
+
+    const userDisplay = document.getElementById("user-display");
+
+    if (user && userDisplay) {
+        userDisplay.textContent = "👤 " + user;
+    } else {
+        userDisplay.textContent = "Guest";
+    }
+});
+</script>
+
+</body>
+</html>
